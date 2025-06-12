@@ -3,6 +3,7 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
 def preprocess(
     filepath, 
@@ -53,14 +54,19 @@ def plot_label_distribution(y, title):
     plt.tight_layout()
     plt.show()
 
+def get_dataset_path(filename):
+    base_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
+    dataset_dir = os.path.abspath(os.path.join(base_dir, "..", "datasets"))
+    return os.path.join(dataset_dir, filename)
+
 if __name__ == "__main__":
     datasets = {
         "palmer_penguins": {
-            "path": "d:/Python/decision-tree/datasets/palmer_penguins.csv",
+            "path": get_dataset_path("palmer_penguins.csv"),
             "label": "species"
         },
         "heart_disease": {
-            "path": "d:/Python/decision-tree/datasets/heart_disease.csv",
+            "path": get_dataset_path("heart_disease.csv"),
             "label": "target"
         },
     }
